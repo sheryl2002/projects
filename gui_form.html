@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Title Here</title>
+</head>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: row; /* Display sections side by side */
+            justify-content: space-around; /* Add space between sections */
+            align-items: flex-start; /* Align sections at the top */
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        /* Style for Feature Importance section */
+        .feature-section {
+            flex: 0.25; /* Occupy 50% of the width */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+
+        /* Style for Prediction section */
+        .prediction-section {
+            flex: 1; /* Occupy 50% of the width */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+
+         form {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        form label, form input {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        form input[type="text"] {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .results {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .results h2 {
+            margin: 0 0 10px;
+            color: #333;
+        }
+
+        .results p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .results span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    <title>Prediction Results</title>
+    <style>
+        /* Styles as before */
+
+        /* Additional style for the results section */
+        .results {
+            display: none;
+            margin: 20px auto;
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .results h2 {
+            margin-bottom: 10px;
+        }
+
+        .results p {
+            margin-bottom: 5px;
+        }
+
+        .results span {
+            font-weight: bold;
+        }
+        h1 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 10px 20px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        a {
+            display: block;
+            margin-top: 10px;
+            color: #4CAF50;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Feature Importance Section -->
+    <div class="feature-section">
+        <h1>Feature Importance</h1>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Importance</th>
+            </tr>
+            {% for feature, importance in feature_importance.items() %}
+            <tr>
+                <td>{{ feature }}</td>
+                <td>{{ importance }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
+    <!-- Prediction Form Section -->
+    <div class="prediction-section">
+        <h1>Prediction of Mechanical Properties of HTPB</h1>
+        <form id="prediction-form" action="/predict" method="post">
+<label for="n_molecular_weight">No. Molecular Weight:</label>
+        <input type="text" name="n_molecular_weight" id="n_molecular_weight" required><br>
+
+        <label for="weight_mol">Weight Mol Weight:</label>
+        <input type="text" name="weight_mol" id="weight_mol" required><br>
+
+        <label for="x_val">X-Value:</label>
+        <input type="text" name="x_val" id="x_val" required><br>
+
+        <label for="oh_value_htpb">OH-HT Value:</label>
+        <input type="text" name="oh_value_htpb" id="oh_value_htpb" required><br>
+
+        <label for="oh_value_add">OH-AD Value:</label>
+        <input type="text" name="oh_value_add" id="oh_value_add" required><br>
+
+        <label for="r_val">R-Value:</label>
+        <input type="text" name="r_val" id="r_val" required><br>
+
+        <label for="viscosity">Viscosity:</label>
+        <input type="text" name="viscosity" id="viscosity" required><br>
+
+        <label for="temp">Temperature:</label>
+        <input type="text" name="temp" id="temp" required><br>            <input type="submit" value="Predict">
+        </form>
+
+        <!-- Results section to display predictions -->
+        <div class="results" id="results-section">
+<h2>Prediction Result</h2>
+        <p>Predicted Tensile Strength: <span id="tensile-strength"></span> MPa</p>
+        <p>Predicted Elongation at Break: <span id="elongation-at-break"></span> %</p>
+        <p>Predicted Modulus: <span id="modulus"></span> Mod</p>         </div>
+    </div>
+
+<script>
+        document.getElementById("prediction-form").onsubmit = function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form input values
+            const form = event.target;
+            const formData = new FormData(form);
+
+            // Send the form data to the server using AJAX
+            fetch("/predict", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+                // Update the results section with the prediction values
+                document.getElementById("tensile-strength").textContent = result.tensile_strength ;
+                document.getElementById("elongation-at-break").textContent = result.elongation_at_break ;
+                document.getElementById("modulus").textContent = result.modulus ;
+
+                // Show the results section
+                document.getElementById("results-section").style.display = "block";
+            })
+            .catch(error => {
+                console.error("Error fetching prediction:", error);
+            });
+        };
+    </script>
+    </body>
+</html>
